@@ -1,0 +1,5 @@
+Name <- c("Jeb", "Donald", "Ted", "Marco", "Carly", "Hillary", "Bernie")
+ABC_political_poll_result <- c(4, 62, 51, 21, 2, 14, 15)
+CBS_political_poll_result <- c(12, 75, 43, 19, 1, 21, 19)
+poll_results <- data.frame(Name, ABC_political_poll_result, CBS_political_poll_result)
+print(poll_results)
