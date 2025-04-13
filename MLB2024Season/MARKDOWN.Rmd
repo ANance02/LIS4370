@@ -1,0 +1,138 @@
+---
+title: "MLB Team Stats Package Demo"
+author: "Anthony Nance"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Batting Functions
+
+Below are the current batting functions added to the package, more will be added in time (as well as the related pitching and fielding functions), this is simply an idea on how the package will function and be fleshed out.
+
+
+```{r}
+# Adding team batting stats function
+load_batting_data <- function() {
+  read.csv("data/Team Batting Stats.csv", stringsAsFactors = FALSE)
+}
+
+# Load and preview batting data
+head(load_batting_data())
+
+# Looking up a specific team's batting stats
+get_batting_stats <- function(team) {
+  data <- load_batting_data()
+  subset(data, Team == team)
+}
+
+# Example
+get_batting_stats("Cleveland Guardians")
+
+# Comparing two teams (batting stats)
+compare_batting <- function(team1, team2, stat) {
+  data <- load_batting_data()
+  data <- subset(data, Team %in% c(team1, team2))
+  data[, c("Team", stat)]
+}
+
+# Example
+compare_batting("Cleveland Guardians", "Oakland Athletics", "AB")
+
+# Sorting by Batting Top Teams
+top_batting_teams <- function(stat, n = 5) {
+  data <- load_batting_data()
+  data[order(-data[[stat]]), ][1:n, c("Team", stat)]
+}
+
+# Example
+top_batting_teams("AB")
+
+```
+
+## Pitching Functions
+
+
+```{r}
+# Adding team pitching stats function
+load_pitching_data <- function() {
+  read.csv("data/Team Pitching Stats.csv", stringsAsFactors = FALSE)
+}
+
+# Load and preview pitching data
+head(load_pitching_data())
+
+# Looking up a specific team's pitching stats
+get_pitching_stats <- function(team) {
+  data <- load_pitching_data()
+  subset(data, Team == team)
+}
+
+# Example
+get_pitching_stats("Cleveland Guardians")
+
+# Comparing two teams (pitching stats)
+compare_pitching <- function(team1, team2, stat) {
+  data <- load_pitching_data()
+  data <- subset(data, Team %in% c(team1, team2))
+  data[, c("Team", stat)]
+}
+
+# Example
+compare_pitching("Cleveland Guardians", "Oakland Athletics", "LOB")
+
+# Sorting by Pitching Top Teams
+top_pitching_teams <- function(stat, n = 5) {
+  data <- load_pitching_data()
+  data[order(-data[[stat]]), ][1:n, c("Team", stat)]
+}
+
+# Example
+top_pitching_teams("LOB")
+
+```
+
+## Fielding Functions
+
+```{r}
+# Adding team fielding stats function
+load_fielding_data <- function() {
+  read.csv("data/Team Fielding Stats.csv", stringsAsFactors = FALSE)
+}
+
+# Load and preview fielding data
+head(load_fielding_data())
+
+# Looking up a specific team's fielding stats
+get_fielding_stats <- function(team) {
+  data <- load_fielding_data()
+  subset(data, Team == team)
+}
+
+# Example
+get_fielding_stats("Cleveland Guardians")
+
+# Comparing two teams (fielding)
+compare_fielding <- function(team1, team2, stat) {
+  data <- load_fielding_data()
+  data <- subset(data, Team %in% c(team1, team2))
+  data[, c("Team", stat)]
+}
+
+# Example
+compare_fielding("Cleveland Guardians", "Oakland Athletics", "E")
+
+# Sorting by Fielding Top Teams
+top_fielding_teams <- function(stat, n = 5) {
+  data <- load_fielding_data()
+  data[order(-data[[stat]]), ][1:n, c("Team", stat)]
+}
+
+# Example
+top_fielding_teams("E")
+
+
+```

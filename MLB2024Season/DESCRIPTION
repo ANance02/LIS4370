@@ -1,0 +1,18 @@
+Package: MLB2024Season
+Type: Package
+Title: Takes MLB Statistics of the 2024 Season and Allows Analysis on a Team by Team Basis
+Version: 0.0.0.9000
+Authors@R: c(
+    person(
+      "Anthony", "Nance",
+      email = "anthonynance@usf.edu",
+      role = c("aut", "cre")
+    )
+  )
+Description: Pulls spreadsheets of the 2024 MLB season and offers functions to analyze, sort
+  and interact with the numerous official statistical recordings between major MLB teams,
+  allowing for easy to digest readibility or the ability to manipulate data.
+  All credits go to baseball-reference.com and Sports Reference for data pulls.
+License: CC0
+Encoding: UTF-8
+LazyData: true
