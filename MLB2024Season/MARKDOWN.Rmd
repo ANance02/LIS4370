@@ -51,6 +51,70 @@ top_batting_teams <- function(stat, n = 5) {
 # Example
 top_batting_teams("AB")
 
+# Show Batting Abbreviations, allowing for full list or specific searching.
+batting_abbreviations <- function(abbreviation = NULL) {
+  bat_abbrev <- data.frame(
+    Abbreviation = c("Bat", "BatAge", "R/G", "G", "PA", "AB", "R", "H",
+                     "2B", "3B", "HR", "RBI", "SB", "CS", "BB", "SO", "BA"),
+    Meaning = c(
+      "Number of batters used in game",
+      "Average age of all batters",
+      "Runs Scored Per Game",
+      "Games played",
+      "Plate Appearances",
+      "At Bats",
+      "Runs Scored",
+      "Hits Allowed",
+      "Doubles Hit",
+      "Triples Hit",
+      "Home Runs Hit",
+      "Runs Batted In",
+      "Stolen Bases",
+      "Caught Stealing",
+      "Bases on Balls or Walks",
+      "Strikeouts",
+      "Batting Average (Hits/At Bats)"
+    ),
+    stringsAsFactors = FALSE
+  )
+
+  if (is.null(abbreviation)) {
+    print(bat_abbrev, row.names = FALSE)
+    invisible(bat_abbrev)
+  } else {
+    match_row <- bat_abbrev[bat_abbrev$Abbreviation == abbreviation, ]
+    if (nrow(match_row) == 0) {
+      message("Abbreviation not found. Please check your input.")
+      invisible(NULL)
+    } else {
+      print(match_row, row.names = FALSE)
+      invisible(match_row)
+    }
+  }
+}
+# Example
+batting_abbreviations()
+batting_abbreviations("R")
+
+# Plots Chosen Batting Data into a Simple Bar Plot
+plot_batting_stat <- function(stat) {
+  data <- load_batting_data()
+
+  if (!(stat %in% names(data))) {
+    stop(paste("Stat", stat, "not found in batting data."))
+  }
+
+  barplot(height = data[[stat]],
+          names.arg = data$Team,
+          las = 2,
+          cex.names = 0.7,
+          main = paste("Teams by Batting", stat),
+          col = "lightgreen",
+          ylab = stat)
+}
+
+# Example
+plot_batting_stat("HR")
 ```
 
 ## Pitching Functions
@@ -93,6 +157,80 @@ top_pitching_teams <- function(stat, n = 5) {
 # Example
 top_pitching_teams("LOB")
 
+pitching_abbreviations <- function(abbreviation = NULL) {
+  pitch_abbrev <- data.frame(
+    Abbreviation = c("#P", "PAge", "RA/G", "W", "L", "W-L%", "ERA", "G", "GS", "GF",
+                     "CG", "tSho", "cSho", "SV", "IP", "H", "R", "ER", "HR", "BB",
+                     "SO", "HBP", "BK", "WP", "BF", "LOB"),
+    Meaning = c(
+      "Number of Pitchers Used in Game",
+      "Average Age of All Pitchers",
+      "Runs Allowed per Game",
+      "Wins",
+      "Losses",
+      "Win-Loss Percentage",
+      "Earned Run Average (9 * ER/IP)",
+      "Games Played",
+      "Games Started",
+      "Games Finished",
+      "Complete Game",
+      "Shutouts by Team",
+      "Shutouts by a Single Pitcher",
+      "Saves",
+      "Innings Pitched",
+      "Hits Allowed",
+      "Runs Allowed",
+      "Earned Runs Allowed",
+      "Home Runs Allowed",
+      "Bases on Balls or Walks",
+      "Strikeouts",
+      "Times Hit by Pitch",
+      "Balks",
+      "Wild Pitches",
+      "Batters Faced",
+      "Runners Left on Base"
+    ),
+    stringsAsFactors = FALSE
+  )
+
+  if (is.null(abbreviation)) {
+    print(pitch_abbrev, row.names = FALSE)
+    invisible(pitch_abbrev)
+  } else {
+    match_row <- pitch_abbrev[pitch_abbrev$Abbreviation == abbreviation, ]
+    if (nrow(match_row) == 0) {
+      message("Abbreviation not found. Please check your input.")
+      invisible(NULL)
+    } else {
+      print(match_row, row.names = FALSE)
+      invisible(match_row)
+    }
+  }
+}
+
+# Example
+pitching_abbreviations()
+pitching_abbreviations("ERA")
+
+# Plots Chosen Pitching Data into a Simple Bar Plot
+plot_pitching_stat <- function(stat) {
+  data <- load_pitching_data()
+
+  if (!(stat %in% names(data))) {
+    stop(paste("Stat", stat, "not found in pitching data."))
+  }
+
+  barplot(height = data[[stat]],
+          names.arg = data$Team,
+          las = 2,
+          cex.names = 0.7,
+          main = paste("Teams by Pitching", stat),
+          col = "lightblue",
+          ylab = stat)
+}
+
+# Example
+plot_pitching_stat("SO")
 ```
 
 ## Fielding Functions
@@ -134,5 +272,83 @@ top_fielding_teams <- function(stat, n = 5) {
 # Example
 top_fielding_teams("E")
 
+# Show Fielding Abbreviations, allowing for full list or specific searching.
+fielding_abbreviations <- function(abbreviation = NULL) {
+  field_abbrev <- data.frame(
+    Abbreviation = c("#Fld", "RA/G", "DefEff", "G", "GS", "CG", "Inn", "Ch",
+                     "PO", "A", "E", "DP"),
+    Meaning = c(
+      "Number of Fielders",
+      "Runs Allowed per Game",
+      "Defensive Efficiency",
+      "Games Played",
+      "Games Started",
+      "Complete Game",
+      "Innings Played in Field",
+      "Defensive Chances (PO + A + E)",
+      "Putouts",
+      "Assists",
+      "Errors",
+      "Double Plays"
+    ),
+    stringsAsFactors = FALSE
+  )
 
+  if (is.null(abbreviation)) {
+    print(field_abbrev, row.names = FALSE)
+    invisible(field_abbrev)
+  } else {
+    match_row <- field_abbrev[field_abbrev$Abbreviation == abbreviation, ]
+    if (nrow(match_row) == 0) {
+      message("Abbreviation not found. Please check your input.")
+      invisible(NULL)
+    } else {
+      print(match_row, row.names = FALSE)
+      invisible(match_row)
+    }
+  }
+}
+
+# Example
+fielding_abbreviations()
+fielding_abbreviations("DP")
+
+# Plots Chosen Fielding Data into a Simple Bar Plot
+plot_fielding_stat <- function(stat) {
+  data <- load_fielding_data()
+
+  if (!(stat %in% names(data))) {
+    stop(paste("Stat", stat, "not found in fielding data."))
+  }
+
+  barplot(height = data[[stat]],
+          names.arg = data$Team,
+          las = 2,
+          cex.names = 0.7,
+          main = paste("Teams by Fielding", stat),
+          col = "lightcoral",
+          ylab = stat)
+}
+
+# Example
+plot_fielding_stat("DP")
+```
+
+
+## Cross-Statistical Functions
+
+```{r}
+# Allows the ability to pull all data for a single team
+team_summary <- function(team) {
+  batting <- get_batting_stats(team)
+  pitching <- get_pitching_stats(team)
+  fielding <- get_fielding_stats(team)
+
+  list(
+    Batting = batting,
+    Pitching = pitching,
+    Fielding = fielding
+  )
+}
+team_summary("Baltimore Orioles")
 ```
